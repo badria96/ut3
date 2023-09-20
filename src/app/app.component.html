@@ -5,8 +5,13 @@
   <form class="todo-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <div class="row">
       <div class="input-field col s9">
-        <input type="text" name="title" id="title" ngModel>
+        <input type="text" name="title" id="title" ngModel required minlength="4" maxlength="200" pattern="^[a-zA-Z0-9\s]*$">
         <label for="title"><div *ngIf="!todos?.length" class="msg">Enter Task</div></label>
+        <div *ngIf="f.controls['title'].hasError('minlength') || f.controls['title'].hasError('maxlength') || f.controls['title'].hasError('pattern')">
+          <div class="error-msg">
+            <p style="color: red;font-family: 'Times New Roman', Times, serif;font-size:medium;">*Text must be between 4 and 200 characters and should not contain special characters.</p>
+          </div>
+        </div>
       </div>
       <br>
       <div class="input-field col s3">
